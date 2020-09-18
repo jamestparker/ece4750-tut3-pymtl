@@ -55,3 +55,9 @@ def test_basic( dump_vcd ):
   # set the input and verify the output of the registered incrementer.
   # ''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
 
+  t(0x00, '?')
+  t(0x13, 0x01)
+  t(0x27, 0x14)
+  t(0x00, 0x28)
+  t(0x00, 0x01)
+  t(0x00, 0x01)

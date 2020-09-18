@@ -11,16 +11,16 @@ class RegIncr( Model ):
 
   # Constructor
 
-  def __init__( s ):
+  def __init__( s, bitwidth = 8 ):
 
     # Port-based interface
 
-    s.in_ = InPort  ( Bits(8) )
-    s.out = OutPort ( Bits(8) )
+    s.in_ = InPort  ( Bits(bitwidth) )
+    s.out = OutPort ( Bits(bitwidth) )
 
     # Sequential logic
 
-    s.reg_out = Wire( Bits(8) )
+    s.reg_out = Wire( Bits(bitwidth) )
 
     @s.tick
     def block1():
@@ -35,4 +35,9 @@ class RegIncr( Model ):
     # and later you will insert a line tracing function to compactly
     # output the input, register, and output values.
     # ''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
-
+    @s.combinational
+    def block2():
+      s.out.value = s.reg_out + 1
+    
+  def line_trace(s):
+    return "{} ({}) {}".format(s.in_, s.reg_out, s.out)
